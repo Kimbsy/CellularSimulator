@@ -66,7 +66,7 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 	//font for displaying data
 	Font font = new Font("Courier", Font.PLAIN, 12);
 	//best creature/carnivore
-	Creature bestC = new Creature();
+	Creature bestC   = new Creature();
 	Carnivore bestCa = new Carnivore();
 
 	//frame rate counters and other timing variables
@@ -74,11 +74,11 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 	long startTime = System.currentTimeMillis();
 
 	//toggles
-	boolean data = false;
-	boolean photonDraw = false;
-	boolean sightCircle = false;
-	boolean keyToggleOne = false;
-	boolean keyToggleTwo = false;
+	boolean data           = false;
+	boolean photonDraw     = false;
+	boolean sightCircle    = false;
+	boolean keyToggleOne   = false;
+	boolean keyToggleTwo   = false;
 	boolean keyToggleThree = false;
 
 	public static void main(String[] args) {
@@ -287,11 +287,11 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 		 g2d.setColor(new Color(0, 1, 0.5f, 1.0f));
 		for(int n=0;n<bestC.getShapeList().size();n++) {
 			Line2D temp = bestC.getShapeList().get(n);
-			double x1 = temp.getP1().getX()*4;
-			double y1 = temp.getP1().getY()*4;
-			double x2 = temp.getP2().getX()*4;
-			double y2 = temp.getP2().getY()*4;
-			Line2D big = new Line2D.Double(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2));
+			double x1   = temp.getP1().getX()*4;
+			double y1   = temp.getP1().getY()*4;
+			double x2   = temp.getP2().getX()*4;
+			double y2   = temp.getP2().getY()*4;
+			Line2D big  = new Line2D.Double(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2));
 			g2d.draw(big);
 		}
 
@@ -311,11 +311,11 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 		g2d.setColor(new Color(0, 1, 0.5f, 1.0f));
 		for(int n=0;n<bestCa.getShapeList().size();n++) {
 			Line2D temp = bestCa.getShapeList().get(n);
-			double x1 = temp.getP1().getX()*4;
-			double y1 = temp.getP1().getY()*4;
-			double x2 = temp.getP2().getX()*4;
-			double y2 = temp.getP2().getY()*4;
-			Line2D big = new Line2D.Double(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2));
+			double x1   = temp.getP1().getX()*4;
+			double y1   = temp.getP1().getY()*4;
+			double x2   = temp.getP2().getX()*4;
+			double y2   = temp.getP2().getY()*4;
+			Line2D big  = new Line2D.Double(new Point2D.Double(x1, y1), new Point2D.Double(x2, y2));
 			g2d.draw(big);
 		}
 	}
@@ -486,7 +486,7 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 						ca.setYRef(calcRef(ca.getY(), c.getY(), height));
 						targetX = c.getX();
 						targetY = c.getY();
-						best = distance;
+						best    = distance;
 					} else {
 						otherwise++;
 					}
@@ -544,7 +544,7 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 						s.setYRef(calcRef(s.getY(), m.getY(), height));
 						targetX = m.getX();
 						targetY = m.getY();
-						best = distance;
+						best    = distance;
 					} else {
 						otherwise++;
 					}
@@ -766,9 +766,9 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 	public boolean edible(Creature c, Photon p) {
 		boolean answer = false;
 		for(int n=0;n<c.getShapeList().size();n++) {
-			Line2D line = c.getShapeList().get(n);
-			Point2D p1 = new Point2D.Double(line.getP1().getX()+c.getX(), line.getP1().getY()+c.getY());
-			Point2D p2 = new Point2D.Double(line.getP2().getX()+c.getX(), line.getP2().getY()+c.getY());
+			Line2D line     = c.getShapeList().get(n);
+			Point2D p1      = new Point2D.Double(line.getP1().getX()+c.getX(), line.getP1().getY()+c.getY());
+			Point2D p2      = new Point2D.Double(line.getP2().getX()+c.getX(), line.getP2().getY()+c.getY());
 			Line2D tempLine = new Line2D.Double(p1, p2);
 			if(tempLine.intersects(p.getBounds())) {
 				answer = true;
@@ -1166,8 +1166,8 @@ public class Life extends JFrame implements Runnable, MouseListener, KeyListener
 		//calculate frame rate
 		frameCount++;
 		if(System.currentTimeMillis() > startTime+1000) {
-			startTime = System.currentTimeMillis();
-			frameRate = frameCount;
+			startTime  = System.currentTimeMillis();
+			frameRate  = frameCount;
 			frameCount = 0;
 		}
 	}
