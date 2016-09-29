@@ -20,11 +20,19 @@ public class Cell extends Sprite implements Living {
   public Cell(int x, int y) {
     super(x, y);
 
+    initShape();
+
+    initMoves();
+  }
+
+  protected void initShape() {
     int[] xPoints = {0, 10, 10, 0};
     int[] yPoints = {0, 0, 10, 10};
     Polygon poly = new Polygon(xPoints, yPoints, 4);
     this.setShape(poly);
+  }
 
+  protected void initMoves() {
     int[] directions = {UP, RIGHT, DOWN, LEFT};
     int[] distances  = {20, 20, 20, 20};
     int[][] list = {directions, distances};
