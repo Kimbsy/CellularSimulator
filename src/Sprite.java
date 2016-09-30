@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * The Sprite class is used as a base for all classes which need to be drawn.
+ */
 public abstract class Sprite {
   // Coordinates.
   protected int x;
@@ -12,12 +15,35 @@ public abstract class Sprite {
   protected Color color;
 
   /**
-   * Constructs the sprite.
+   * Basic constructor.
+   */
+  public Sprite() {
+    // No-op.
+  }
+
+  /**
+   * Constructor opnly specifying coordinates.
+   *
+   * @param  x The X coordinate of the Sprite.
+   * @param  y The Y coordinate of the Sprite.
    */
   public Sprite(int x, int y) {
     this.setX(x);
     this.setY(y);
   }
+
+  /**
+   * Constructor specifying all required attributes.
+   *
+   * @param  x     The X coordinate of the Sprite.
+   * @param  y     The Y coordinate of the Sprite.
+   * @param  shape The shape of the Sprite.
+   * @param  Color The color of the Sprite.
+   */
+  public Sprite(int x, int y, Shape shape, Color color) {
+    this.setShape(shape);
+  }
+
 
   public int getX() {
     return this.x;
