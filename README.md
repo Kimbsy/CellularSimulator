@@ -1,4 +1,4 @@
 CellularSimulator
 ====
 
-An cellular automata simulation.
+A cellular automata simulation.

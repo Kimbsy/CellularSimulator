@@ -6,6 +6,11 @@ import javax.swing.*;
 
 public class CellularSimulator extends JFrame implements Runnable {
 
+  // Class constants
+  public static final int WIDTH      = 900;
+  public static final int HEIGHT     = 600;
+  public static final int CELL_COUNT = 5;
+
   // Main simulation thread.
   Thread sim;
 
@@ -18,14 +23,14 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Base coordinate transform.
   AffineTransform identity = new AffineTransform();
 
-  // Define the frame dimensions.
-  int width  = 900;
-  int height = 600;
+  // // Define the frame dimensions.
+  // int WIDTH  = 900;
+  // int HEIGHT = 600;
 
   CellCollection cells = new CellCollection(this);
 
   /**
-   * Create the simulation.
+   * Creates the simulation.
    * 
    * @param  args  The arguments passed in from the command line.
    */
@@ -38,7 +43,7 @@ public class CellularSimulator extends JFrame implements Runnable {
    */
   public CellularSimulator() {
     super("CellularSimulator");
-    setSize(width, height);
+    setSize(WIDTH, HEIGHT);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -48,19 +53,19 @@ public class CellularSimulator extends JFrame implements Runnable {
   }
 
   /**
-   * Initialise the simulation.
+   * Initialises the simulation.
    * 
    * Creates the graphics for the backbuffer.
    */
   public void init() {
-    backBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    backBuffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     g2d = backBuffer.createGraphics();
 
     cells.init();
   }
 
   /**
-   * Update the main simulation thread.
+   * Updates the main simulation thread.
    */
   public void run() {
     Thread t = Thread.currentThread();
@@ -77,7 +82,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   }
 
   /**
-   * Draw all the things.
+   * Draws all the things.
    *
    * @param  g  The graphics object.
    */
@@ -90,14 +95,14 @@ public class CellularSimulator extends JFrame implements Runnable {
 
     // Draw the background.
     g2d.setColor(Color.BLACK);
-    g2d.fillRect(0, 0, width, height);
+    g2d.fillRect(0, 0, WIDTH, HEIGHT);
 
     // Draw stuff.
     cells.drawCells(g2d, identity);
   }
 
   /**
-   * Update all the things.
+   * Updates all the things.
    */
   public void simUpdate() {
     cells.updateCells();

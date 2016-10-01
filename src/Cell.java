@@ -164,7 +164,7 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Move the Cell based on its moveList, moveIndex and distanceMoved.
+   * Moves the Cell based on its moveList, moveIndex and distanceMoved.
    */
   public void move() {
     int distance = moveList[1][moveIndex];

@@ -97,7 +97,7 @@ public abstract class Sprite {
   }
 
   /**
-   * Increment the Y Coordinate.
+   * Increments the Y Coordinate.
    *
    * @param  i  How much to increment by.
    */
@@ -142,7 +142,7 @@ public abstract class Sprite {
   }
 
   /**
-   * Draw the Sprite to the screen.
+   * Draws the Sprite to the screen.
    *
    * @param  g2d       The Graphics object.
    * @param  identity  The base coordinate transform.
