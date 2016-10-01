@@ -6,9 +6,6 @@ import java.util.List;
 
 public class CellCollection {
 
-  // Random number generator.
-  public static Random rand = new Random();
-
   // List of Cells in the simulation.
   protected List<Cell> cells = Collections.synchronizedList(new ArrayList<Cell>());
   
@@ -17,8 +14,8 @@ public class CellCollection {
    */
   public void init() {
     for (int i = 0; i < CellularSimulator.CELL_COUNT; i++) {
-      int randX = rand.nextInt(CellularSimulator.WIDTH);
-      int randY = rand.nextInt(CellularSimulator.HEIGHT);
+      int randX = CellularSimulator.rand.nextInt(CellularSimulator.WIDTH);
+      int randY = CellularSimulator.rand.nextInt(CellularSimulator.HEIGHT);
       Cell cell = new Cell(randX, randY);
       int[][] moveList = Cell.getRandomMoveList();
       cell.setMoveList(moveList);

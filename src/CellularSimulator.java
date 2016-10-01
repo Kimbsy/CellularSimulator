@@ -11,6 +11,9 @@ public class CellularSimulator extends JFrame implements Runnable {
   public static final int HEIGHT     = 900;
   public static final int CELL_COUNT = 50;
 
+  // Random number generator.
+  public static Random rand = new Random();
+
   // Main simulation thread.
   Thread sim;
 

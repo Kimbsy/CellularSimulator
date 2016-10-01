@@ -18,9 +18,6 @@ public class Cell extends Sprite implements Living {
   // How far the Cell has travelled for this move.
   protected int distanceMoved = 0;
 
-  // Random number generator.
-  public static Random rand = new Random();
-
   /**
    * Constructs a Cell specifying coordinates.
    *
@@ -95,13 +92,13 @@ public class Cell extends Sprite implements Living {
    * @return  The random move list.
    */
   public static int[][] getRandomMoveList() {
-    int moveCount    = rand.nextInt(9) + 1;
+    int moveCount    = CellularSimulator.rand.nextInt(9) + 1;
     int[] directions = new int[moveCount];
     int[] distances  = new int[moveCount];
 
     for (int i = 0; i < moveCount; i++) {
-      directions[i] = rand.nextInt(4);
-      distances[i]  = rand.nextInt(40);
+      directions[i] = CellularSimulator.rand.nextInt(4);
+      distances[i]  = CellularSimulator.rand.nextInt(40);
     }
 
     int[][] moveList = {directions, distances};
