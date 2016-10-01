@@ -9,7 +9,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Class constants
   public static final int WIDTH      = 900;
   public static final int HEIGHT     = 600;
-  public static final int CELL_COUNT = 5;
+  public static final int CELL_COUNT = 10;
 
   // Main simulation thread.
   Thread sim;
@@ -23,11 +23,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Base coordinate transform.
   AffineTransform identity = new AffineTransform();
 
-  // // Define the frame dimensions.
-  // int WIDTH  = 900;
-  // int HEIGHT = 600;
-
-  CellCollection cells = new CellCollection(this);
+  CellCollection cells = new CellCollection();
 
   /**
    * Creates the simulation.

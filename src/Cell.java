@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 public class Cell extends Sprite implements Living {
 
@@ -16,6 +17,9 @@ public class Cell extends Sprite implements Living {
 
   // How far the Cell has travelled for this move.
   protected int distanceMoved = 0;
+
+  // Random number generator.
+  public static Random rand = new Random();
 
   /**
    * Constructs a Cell specifying coordinates.
@@ -81,6 +85,25 @@ public class Cell extends Sprite implements Living {
   public static int[][] getDefaultMoveList() {
     int[] directions = {UP, RIGHT, DOWN, LEFT};
     int[] distances  = {20, 20, 20, 20};
+    int[][] moveList = {directions, distances};
+    return moveList;
+  }
+
+  /**
+   * Gets a random move list for a Cell.
+   *
+   * @return  The random move list.
+   */
+  public static int[][] getRandomMoveList() {
+    int moveCount    = rand.nextInt(9) + 1;
+    int[] directions = new int[moveCount];
+    int[] distances  = new int[moveCount];
+
+    for (int i = 0; i < moveCount; i++) {
+      directions[i] = rand.nextInt(4);
+      distances[i]  = rand.nextInt(40);
+    }
+
     int[][] moveList = {directions, distances};
     return moveList;
   }
@@ -168,6 +191,7 @@ public class Cell extends Sprite implements Living {
    */
   public void move() {
     int distance = moveList[1][moveIndex];
+
     if (distanceMoved >= distance) {
       setDistanceMoved(0);
       incMoveIndex(1);

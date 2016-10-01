@@ -66,7 +66,7 @@ public abstract class Sprite {
    * @param  x  The X coordinate.
    */
   public void setX(int x) {
-    this.x = x;
+    this.x = limit(x, CellularSimulator.WIDTH);
   }
 
   /**
@@ -75,7 +75,7 @@ public abstract class Sprite {
    * @param  i  How much to increment by.
    */
   public void incX(int i) {
-    x += i;
+    x = limit((x + i), CellularSimulator.WIDTH);
   }
 
   /**
@@ -93,7 +93,7 @@ public abstract class Sprite {
    * @param  x  The Y coordinate.
    */
   public void setY(int y) {
-    this.y = y;
+    this.y = limit(y, CellularSimulator.HEIGHT);
   }
 
   /**
@@ -102,7 +102,20 @@ public abstract class Sprite {
    * @param  i  How much to increment by.
    */
   public void incY(int i) {
-    y += i;
+    y = limit((y + i), CellularSimulator.HEIGHT);
+  }
+
+  public int limit(int i, int limit) {
+    int limited = i;
+
+    if (i > limit) {
+      limited = i - limit;
+    }
+    if (i < 0) {
+      limited = i + limit;
+    }
+
+    return limited;
   }
 
   /**
