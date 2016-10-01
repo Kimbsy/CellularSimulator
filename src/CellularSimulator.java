@@ -12,7 +12,10 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Buffered image for smooth graphics.
   BufferedImage backBuffer;
 
+  // Graphics object for drawing to the frame.
   Graphics2D g2d;
+
+  // Base coordinate transform.
   AffineTransform identity = new AffineTransform();
 
   // Define the frame dimensions.

@@ -50,40 +50,101 @@ public abstract class Sprite {
     return color;
   }
 
+  /**
+   * Gets the X coordinate.
+   *
+   * @return  The X coordinate.
+   */
   public int getX() {
     return this.x;
   }
+
+  /**
+   * Sets the X coordinate.
+   *
+   * @param  x  The X coordinate.
+   */
   public void setX(int x) {
     this.x = x;
   }
+
+  /**
+   * Increments the X coordinate.
+   *
+   * @param  i  How much to increment by.
+   */
   public void incX(int i) {
     this.x += i;
   }
 
+  /**
+   * Gets the Y coorindate.
+   *
+   * @return  The Y coordinate.
+   */
   public int getY() {
     return this.y;
   }
+
+  /**
+   * Sets the Y coordinate.
+   *
+   * @param  x  The Y coordinate.
+   */
   public void setY(int y) {
     this.y = y;
   }
+
+  /**
+   * Increment the Y Coordinate.
+   *
+   * @param  i  How much to increment by.
+   */
   public void incY(int i) {
     this.y += i;
   }
 
+  /**
+   * Gets the shape of the Sprite.
+   *
+   * @return  The shape of the Sprite.
+   */
   public Polygon getShape() {
     return this.shape;
   }
+
+  /**
+   * Sets the shape of the Sprite.
+   *
+   * @param  shape  The shape of the Sprite.
+   */
   public void setShape(Polygon shape) {
     this.shape = shape;
   }
 
+  /**
+   * Gets the color of the Sprite.
+   *
+   * @return  The color of the Sprite.
+   */
   public Color getColor() {
     return this.color;
   }
+
+  /**
+   * Sets the color of the Sprite.
+   *
+   * @param  color  The color of the Sprite.
+   */
   public void setColor(Color color) {
     this.color = color;
   }
 
+  /**
+   * Draw the Sprite to the screen.
+   *
+   * @param  g2d  The Graphics object.
+   */
   public void draw(Graphics2D g2d) {
     g2d.setColor(this.getColor());
     g2d.translate(x, y);

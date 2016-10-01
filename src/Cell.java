@@ -122,7 +122,7 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Increment the move index.
+   * Increments the move index.
    *
    * Wraps around to the start of the list.
    *
@@ -151,7 +151,7 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Increment how far the Cell has travelled for this move.
+   * Increments how far the Cell has travelled for this move.
    *
    * @param  i  How much to increment by.
    */
