@@ -35,8 +35,8 @@ public abstract class Sprite {
    * @return  The default shape.
    */
   public static Shape getDefaultShape() {
-    int[] xPoints = {0, 10, 10, 0};
-    int[] yPoints = {0, 0, 10, 10};
+    int[] xPoints = {0, 5, 5, 0};
+    int[] yPoints = {0, 0, 5, 5};
     Shape poly  = new Polygon(xPoints, yPoints, 4);
     return poly;
   }
@@ -164,6 +164,6 @@ public abstract class Sprite {
     g2d.setTransform(identity);
     g2d.translate(x, y);
     g2d.setColor(getColor());
-    g2d.fill(getShape());
+    g2d.draw(getShape());
   }
 }

@@ -7,9 +7,9 @@ import javax.swing.*;
 public class CellularSimulator extends JFrame implements Runnable {
 
   // Class constants
-  public static final int WIDTH      = 900;
-  public static final int HEIGHT     = 600;
-  public static final int CELL_COUNT = 10;
+  public static final int WIDTH      = 1600;
+  public static final int HEIGHT     = 900;
+  public static final int CELL_COUNT = 50;
 
   // Main simulation thread.
   Thread sim;
@@ -23,6 +23,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Base coordinate transform.
   AffineTransform identity = new AffineTransform();
 
+  // The Cells in the simulation.
   CellCollection cells = new CellCollection();
 
   /**

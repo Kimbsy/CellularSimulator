@@ -61,8 +61,8 @@ public class Cell extends Sprite implements Living {
    * @return  The default shape.
    */
   public static Polygon getDefaultShape() {
-    int[] xPoints = {0, 10, 10, 0};
-    int[] yPoints = {0, 0, 10, 10};
+    int[] xPoints = {0, 5, 5, 0};
+    int[] yPoints = {0, 0, 5, 5};
     Polygon poly  = new Polygon(xPoints, yPoints, 4);
     return poly;
   }
