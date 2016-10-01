@@ -91,7 +91,7 @@ public class Cell extends Sprite implements Living {
    * @return  The list of moves.
    */
   public int[][] getMoveList() {
-    return this.moveList;
+    return moveList;
   }
 
   /**
@@ -109,7 +109,7 @@ public class Cell extends Sprite implements Living {
    * @return  The move index.
    */
   public int getMoveIndex() {
-    return this.moveIndex;
+    return moveIndex;
   }
 
   /**
@@ -129,7 +129,7 @@ public class Cell extends Sprite implements Living {
    * @param  i  How much to increment by.
    */
   public void incMoveIndex(int i) {
-    this.moveIndex = (this.moveIndex + i) % this.moveList[0].length;
+    moveIndex = (moveIndex + i) % moveList[0].length;
   }
 
   /**
@@ -138,7 +138,7 @@ public class Cell extends Sprite implements Living {
    * @return  How far the Cell has travelled.
    */
   public int getDistanceMoved() {
-    return this.distanceMoved;
+    return distanceMoved;
   }
 
   /**
@@ -156,33 +156,37 @@ public class Cell extends Sprite implements Living {
    * @param  i  How much to increment by.
    */
   public void incDistanceMoved(int i) {
-    this.distanceMoved += i;
+    distanceMoved += i;
+  }
+
+  public void update() {
+    move();
   }
 
   /**
    * Move the Cell based on its moveList, moveIndex and distanceMoved.
    */
   public void move() {
-    int distance = getMoveList()[1][getMoveIndex()];
-    if (getDistanceMoved() >= distance) {
+    int distance = moveList[1][moveIndex];
+    if (distanceMoved >= distance) {
       setDistanceMoved(0);
       incMoveIndex(1);
     }
 
-    int currentMove = this.moveList[0][this.moveIndex];
+    int currentMove = moveList[0][moveIndex];
 
     switch (currentMove) {
       case UP:
-        this.incY(-1);
+        incY(-1);
         break;
       case DOWN:
-        this.incY(1);
+        incY(1);
         break;
       case LEFT:
-        this.incX(-1);
+        incX(-1);
         break;
       case RIGHT:
-        this.incX(1);
+        incX(1);
         break;
     }
 

@@ -1,4 +1,4 @@
-Life
+CellularSimulator
 ====
 
-evolutionary simulator
+An cellular automata simulation.

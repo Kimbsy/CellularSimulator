@@ -22,7 +22,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   int width  = 900;
   int height = 600;
 
-  Cell cell = new Cell(100, 100);
+  CellCollection cells = new CellCollection(this);
 
   /**
    * Create the simulation.
@@ -55,6 +55,8 @@ public class CellularSimulator extends JFrame implements Runnable {
   public void init() {
     backBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     g2d = backBuffer.createGraphics();
+
+    cells.init();
   }
 
   /**
@@ -91,13 +93,13 @@ public class CellularSimulator extends JFrame implements Runnable {
     g2d.fillRect(0, 0, width, height);
 
     // Draw stuff.
-    cell.draw(g2d);
+    cells.drawCells(g2d, identity);
   }
 
   /**
    * Update all the things.
    */
   public void simUpdate() {
-    cell.move();
+    cells.updateCells();
   }
 }

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.*;
 
 /**
  * The Sprite class is used as a base for all classes which need to be drawn.
@@ -9,7 +10,7 @@ public abstract class Sprite {
   protected int y;
 
   // Shape of sprite.
-  protected Polygon shape;
+  protected Shape shape;
 
   // The color of the sprite.
   protected Color color;
@@ -33,10 +34,10 @@ public abstract class Sprite {
    *
    * @return  The default shape.
    */
-  public static Polygon getDefaultShape() {
+  public static Shape getDefaultShape() {
     int[] xPoints = {0, 10, 10, 0};
     int[] yPoints = {0, 0, 10, 10};
-    Polygon poly  = new Polygon(xPoints, yPoints, 4);
+    Shape poly  = new Polygon(xPoints, yPoints, 4);
     return poly;
   }
 
@@ -56,7 +57,7 @@ public abstract class Sprite {
    * @return  The X coordinate.
    */
   public int getX() {
-    return this.x;
+    return x;
   }
 
   /**
@@ -74,7 +75,7 @@ public abstract class Sprite {
    * @param  i  How much to increment by.
    */
   public void incX(int i) {
-    this.x += i;
+    x += i;
   }
 
   /**
@@ -83,7 +84,7 @@ public abstract class Sprite {
    * @return  The Y coordinate.
    */
   public int getY() {
-    return this.y;
+    return y;
   }
 
   /**
@@ -101,7 +102,7 @@ public abstract class Sprite {
    * @param  i  How much to increment by.
    */
   public void incY(int i) {
-    this.y += i;
+    y += i;
   }
 
   /**
@@ -109,8 +110,8 @@ public abstract class Sprite {
    *
    * @return  The shape of the Sprite.
    */
-  public Polygon getShape() {
-    return this.shape;
+  public Shape getShape() {
+    return shape;
   }
 
   /**
@@ -118,7 +119,7 @@ public abstract class Sprite {
    *
    * @param  shape  The shape of the Sprite.
    */
-  public void setShape(Polygon shape) {
+  public void setShape(Shape shape) {
     this.shape = shape;
   }
 
@@ -128,7 +129,7 @@ public abstract class Sprite {
    * @return  The color of the Sprite.
    */
   public Color getColor() {
-    return this.color;
+    return color;
   }
 
   /**
@@ -143,11 +144,13 @@ public abstract class Sprite {
   /**
    * Draw the Sprite to the screen.
    *
-   * @param  g2d  The Graphics object.
+   * @param  g2d       The Graphics object.
+   * @param  identity  The base coordinate transform.
    */
-  public void draw(Graphics2D g2d) {
-    g2d.setColor(this.getColor());
+  public void draw(Graphics2D g2d, AffineTransform identity) {
+    g2d.setTransform(identity);
     g2d.translate(x, y);
-    g2d.fillPolygon(this.getShape());
+    g2d.setColor(getColor());
+    g2d.fill(getShape());
   }
 }
