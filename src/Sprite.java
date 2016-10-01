@@ -37,7 +37,7 @@ public abstract class Sprite {
   public static Shape getDefaultShape() {
     int[] xPoints = {0, 5, 5, 0};
     int[] yPoints = {0, 0, 5, 5};
-    Shape poly  = new Polygon(xPoints, yPoints, 4);
+    Shape poly    = new Polygon(xPoints, yPoints, 4);
     return poly;
   }
 

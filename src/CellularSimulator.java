@@ -9,9 +9,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Class constants
   public static final int WIDTH      = 1600;
   public static final int HEIGHT     = 900;
-  // public static final int WIDTH      = 600;
-  // public static final int HEIGHT     = 300;
-  public static final int CELL_COUNT = 50;
+  public static final int CELL_COUNT = 10;
 
   // Random number generator.
   public static Random rand = new Random();
@@ -29,7 +27,10 @@ public class CellularSimulator extends JFrame implements Runnable {
   protected AffineTransform identity = new AffineTransform();
 
   // The Cells in the simulation.
-  protected CellCollection cells = new CellCollection();
+  public CellCollection cells = new CellCollection();
+
+  // The distribution of food in the simulation.
+  public FoodMap foodMap = new FoodMap();
 
   /**
    * Creates the simulation.
@@ -64,6 +65,7 @@ public class CellularSimulator extends JFrame implements Runnable {
     g2d = backBuffer.createGraphics();
 
     cells.init();
+    foodMap.init();
   }
 
   /**
@@ -100,13 +102,14 @@ public class CellularSimulator extends JFrame implements Runnable {
     g2d.fillRect(0, 0, WIDTH, HEIGHT);
 
     // Draw stuff.
-    cells.drawCells(g2d, identity);
+    cells.draw(g2d, identity);
   }
 
   /**
    * Updates all the things.
    */
   public void simUpdate() {
-    cells.updateCells();
+    cells.update(this);
+    foodMap.update();
   }
 }

@@ -9,6 +9,9 @@ public class Cell extends Sprite implements Living {
   public static final int LEFT  = 2;
   public static final int RIGHT = 3;
 
+  // The size of the Cell.
+  protected int size = 5;
+
   // List of moves.
   protected int[][] moveList;
 
@@ -19,7 +22,7 @@ public class Cell extends Sprite implements Living {
   protected int distanceMoved = 0;
 
   // The amount of energy the Cell has.
-  protected float energy = 1024;
+  protected float energy = 512;
 
   // How quickly the Cell uses energy.
   protected float metabolicRate = 1;
@@ -49,10 +52,9 @@ public class Cell extends Sprite implements Living {
    * @param  x         The X coordinate of the Cell.
    * @param  y         The Y coordinate of the Cell.
    * @param  shape     The shape of the Cell.
-   * @param  color     The color of the Cell.
    * @param  moveList  The move list fo the Cell.
    */
-  public Cell(int x, int y, Polygon shape, Color color, int[][] moveList) {
+  public Cell(int x, int y, Shape shape, int[][] moveList) {
     super(x, y);
 
     setShape(shape);
@@ -90,7 +92,8 @@ public class Cell extends Sprite implements Living {
    */
   public Color getColor() {
     float percentage = energy / 1024;
-    int normalised   = (int) (percentage * 205) % 205;
+    int normalised   = (int) (percentage * 205);
+    normalised = Math.min(normalised, 205);
 
     int r = normalised;
     int g = normalised + 50;
@@ -205,23 +208,52 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Get the rate at which the Cell loses energy.
+   * Gets the amount of energy the Cell has.
    *
-   * @return     The metabolic rate.
+   * @return  The amount of energy.
+   */
+  public float getEnergy() {
+    return energy;
+  }
+
+  /**
+   * Sets the amount of energy the Cell has.
+   *
+   * @param  energy  The amount of energy.
+   */
+  public void setEnergy(float energy) {
+    this.energy = energy;
+  }
+
+  /**
+   * Gets the rate at which the Cell loses energy.
+   *
+   * @return  The metabolic rate.
    */
   public float getMetabolicRate() {
     return metabolicRate;
   }
 
   /**
-   * Set the rate at which the Cell loses energy.
+   * Sets the rate at which the Cell loses energy.
    */
   public void setMetabolicRate(float metabolicRate) {
     this.metabolicRate = metabolicRate;
   }
 
-  public void update() {
+  /**
+   * Updates this Cell.
+   *
+   * @param  iter  An iterator for the simulation CellCollection.
+   * @param  sim   The simulation.
+   */
+  public void update(ListIterator<Cell> iter, CellularSimulator sim) {
+    if (energy <= 0) {
+      return;
+    }
     move();
+    absorb(sim.foodMap);
+    divide(iter);
     metabolise();
   }
 
@@ -257,9 +289,38 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Reduce the energy level of the Cell.
+   * Absorbs energy from the surrounding environment.
+   */
+  public void absorb(FoodMap foodMap) {
+    int minX = x;
+    int maxX = x + size;
+    int minY = y;
+    int maxY = y + size;
+
+    float absorbedEnergy = foodMap.absorbFromArea(minX, maxX, minY, maxY);
+    energy = Math.min((energy + absorbedEnergy), 1024);
+  }
+
+  /**
+   * Creates a new Cell based on this one.
+   *
+   * @param  iter  An iterator for the simulation CellCollection.
+   */
+  public void divide(ListIterator<Cell> iter) {
+    if (energy >= 1024) {
+      float newEnergy = energy / 2;
+      Cell child = new Cell((x - size), (y - size), getShape(), getMoveList());
+      child.setEnergy(newEnergy);
+      setEnergy(newEnergy);
+      iter.add(child);
+    }
+  }
+
+  /**
+   * Reduces the energy level of the Cell.
    */
   public void metabolise() {
+    energy = Math.max((energy - metabolicRate), 0);
     if (energy - metabolicRate > 0) {
       energy -= metabolicRate;
     }

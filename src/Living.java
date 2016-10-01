@@ -79,4 +79,9 @@ interface Living {
    * Reduce the energy level of the entity.
    */
   public void metabolise();
+
+  /**
+   * Absorb energy from the surrounding environment.
+   */
+  public void absorb(FoodMap foodMap);
 }

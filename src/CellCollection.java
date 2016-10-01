@@ -67,24 +67,26 @@ public class CellCollection {
    * @param  g2d       The Graphics object.
    * @param  identity  The base coordinate transform.
    */
-  public void drawCells(Graphics2D g2d, AffineTransform identity) {
-    ListIterator<Cell> it = cells.listIterator();
+  public void draw(Graphics2D g2d, AffineTransform identity) {
+    ListIterator<Cell> iter = cells.listIterator();
 
-    while (it.hasNext()) {
-      Cell cell = it.next();
+    while (iter.hasNext()) {
+      Cell cell = iter.next();
       cell.draw(g2d, identity);
     }
   }
 
   /**
    * Updates all the Cells.
+   *
+   * @param  sim  The simulation.
    */
-  public void updateCells() {
-    ListIterator<Cell> it = cells.listIterator();
+  public void update(CellularSimulator sim) {
+    ListIterator<Cell> iter = cells.listIterator();
 
-    while (it.hasNext()) {
-      Cell cell = it.next();
-      cell.update();
+    while (iter.hasNext()) {
+      Cell cell = iter.next();
+      cell.update(iter, sim);
     }
   }
 }
