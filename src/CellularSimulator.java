@@ -24,7 +24,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   /**
    * Create the simulation.
    * 
-   * @param args The arguments passed in from the command line.
+   * @param  args  The arguments passed in from the command line.
    */
   public static void main(String args[]) {
     new CellularSimulator();
@@ -52,9 +52,6 @@ public class CellularSimulator extends JFrame implements Runnable {
   public void init() {
     backBuffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     g2d = backBuffer.createGraphics();
-
-    cell.setShape(new Polygon(new int[] {0, 10, 10, 0}, new int[] {0, 0, 10, 10}, 4));
-    cell.setColor(Color.GREEN);
   }
 
   /**
@@ -77,7 +74,7 @@ public class CellularSimulator extends JFrame implements Runnable {
   /**
    * Draw all the things.
    *
-   * @param g The graphics object.
+   * @param  g  The graphics object.
    */
   public void paint(Graphics g) {
     // Draw the backBuffer to the window.

@@ -15,35 +15,40 @@ public abstract class Sprite {
   protected Color color;
 
   /**
-   * Basic constructor.
-   */
-  public Sprite() {
-    // No-op.
-  }
-
-  /**
-   * Constructor opnly specifying coordinates.
+   * Constructs a Sprite specifying coordinates.
    *
-   * @param  x The X coordinate of the Sprite.
-   * @param  y The Y coordinate of the Sprite.
+   * @param  x  The X coordinate of the Sprite.
+   * @param  y  The Y coordinate of the Sprite.
    */
   public Sprite(int x, int y) {
-    this.setX(x);
-    this.setY(y);
+    setX(x);
+    setY(y);
+
+    setShape(getDefaultShape());
+    setColor(getDefaultColor());
   }
 
   /**
-   * Constructor specifying all required attributes.
+   * Gets the default shape for a Sprite.
    *
-   * @param  x     The X coordinate of the Sprite.
-   * @param  y     The Y coordinate of the Sprite.
-   * @param  shape The shape of the Sprite.
-   * @param  Color The color of the Sprite.
+   * @return  The default shape.
    */
-  public Sprite(int x, int y, Shape shape, Color color) {
-    this.setShape(shape);
+  public static Polygon getDefaultShape() {
+    int[] xPoints = {0, 10, 10, 0};
+    int[] yPoints = {0, 0, 10, 10};
+    Polygon poly  = new Polygon(xPoints, yPoints, 4);
+    return poly;
   }
 
+  /**
+   * Gets the default color for a Sprite.
+   *
+   * @return  The default color.
+   */
+  public static Color getDefaultColor() {
+    Color color = Color.WHITE;
+    return color;
+  }
 
   public int getX() {
     return this.x;
