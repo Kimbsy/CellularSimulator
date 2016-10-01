@@ -105,6 +105,14 @@ public abstract class Sprite {
     y = limit((y + i), CellularSimulator.HEIGHT);
   }
 
+  /**
+   * Limits a number to between 0 and an upper bound.
+   *
+   * @param  i      The number to limit.
+   * @param  limit  The upper bound.
+   *
+   * @return  The limited number.
+   */
   public int limit(int i, int limit) {
     int limited = i;
 

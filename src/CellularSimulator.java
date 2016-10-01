@@ -9,25 +9,27 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Class constants
   public static final int WIDTH      = 1600;
   public static final int HEIGHT     = 900;
+  // public static final int WIDTH      = 600;
+  // public static final int HEIGHT     = 300;
   public static final int CELL_COUNT = 50;
 
   // Random number generator.
   public static Random rand = new Random();
 
   // Main simulation thread.
-  Thread sim;
+  protected Thread sim;
 
   // Buffered image for smooth graphics.
-  BufferedImage backBuffer;
+  protected BufferedImage backBuffer;
 
   // Graphics object for drawing to the frame.
-  Graphics2D g2d;
+  protected Graphics2D g2d;
 
   // Base coordinate transform.
-  AffineTransform identity = new AffineTransform();
+  protected AffineTransform identity = new AffineTransform();
 
   // The Cells in the simulation.
-  CellCollection cells = new CellCollection();
+  protected CellCollection cells = new CellCollection();
 
   /**
    * Creates the simulation.

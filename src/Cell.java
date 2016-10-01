@@ -18,6 +18,12 @@ public class Cell extends Sprite implements Living {
   // How far the Cell has travelled for this move.
   protected int distanceMoved = 0;
 
+  // The amount of energy the Cell has.
+  protected float energy = 1024;
+
+  // How quickly the Cell uses energy.
+  protected float metabolicRate = 1;
+
   /**
    * Constructs a Cell specifying coordinates.
    *
@@ -33,6 +39,8 @@ public class Cell extends Sprite implements Living {
     setShape(getDefaultShape());
     setColor(getDefaultColor());
     setMoveList(getDefaultMoveList());
+
+    energy = CellularSimulator.rand.nextInt(1024);
   }
 
   /**
@@ -50,6 +58,7 @@ public class Cell extends Sprite implements Living {
     setShape(shape);
     setColor(color);
     setMoveList(moveList);
+    energy = CellularSimulator.rand.nextInt(1024);
   }
 
   /**
@@ -72,6 +81,22 @@ public class Cell extends Sprite implements Living {
   public static Color getDefaultColor() {
     Color color = Color.GREEN;
     return color;
+  }
+
+  /**
+   * Get the color of a Cell based on its energy level.
+   *
+   * @return  The color of the Cell.
+   */
+  public Color getColor() {
+    float percentage = energy / 1024;
+    int normalised   = (int) (percentage * 205) % 205;
+
+    int r = normalised;
+    int g = normalised + 50;
+    int b = normalised;
+
+    return new Color(r, g, b);
   }
 
   /**
@@ -179,8 +204,25 @@ public class Cell extends Sprite implements Living {
     distanceMoved += i;
   }
 
+  /**
+   * Get the rate at which the Cell loses energy.
+   *
+   * @return     The metabolic rate.
+   */
+  public float getMetabolicRate() {
+    return metabolicRate;
+  }
+
+  /**
+   * Set the rate at which the Cell loses energy.
+   */
+  public void setMetabolicRate(float metabolicRate) {
+    this.metabolicRate = metabolicRate;
+  }
+
   public void update() {
     move();
+    metabolise();
   }
 
   /**
@@ -212,5 +254,14 @@ public class Cell extends Sprite implements Living {
     }
 
     incDistanceMoved(1);
+  }
+
+  /**
+   * Reduce the energy level of the Cell.
+   */
+  public void metabolise() {
+    if (energy - metabolicRate > 0) {
+      energy -= metabolicRate;
+    }
   }
 }

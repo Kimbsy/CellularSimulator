@@ -62,4 +62,21 @@ interface Living {
    * Move the entity based on its moveList, moveIndex and distanceMoved.
    */
   public void move();
+
+  /**
+   * Get the rate at which the entity loses energy.
+   *
+   * @return     The metabolic rate.
+   */
+  public float getMetabolicRate();
+
+  /**
+   * Set the rate at which the entity loses energy.
+   */
+  public void setMetabolicRate(float metabolicRate);
+
+  /**
+   * Reduce the energy level of the entity.
+   */
+  public void metabolise();
 }
