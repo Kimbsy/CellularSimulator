@@ -22,6 +22,10 @@ public class CellCollection {
 
       int[][] moveList = Cell.getRandomMoveList();
       cell.setMoveList(moveList);
+      cell.updateStationaryFactor();
+
+      // double multiplier = 4 * Math.pow(cell.stationaryFactor, 4);
+      // System.out.println(cell.stationaryFactor + " >> " + Math.max(multiplier, 1));
 
       add(cell);
     }

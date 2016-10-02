@@ -9,6 +9,8 @@ import java.awt.image.*;
  */
 public class FoodMap {
 
+  public static final int INITIAL_FOOD = 10;
+
   // The width and height of the Simulation.
   protected int width  = CellularSimulator.WIDTH;
   protected int height = CellularSimulator.HEIGHT;
@@ -20,7 +22,9 @@ public class FoodMap {
    * Initialises the FoodMap.
    */
   public void init() {
-
+    for (int i = 0; i < INITIAL_FOOD; i++) {
+      update();
+    }
   }
 
   /**

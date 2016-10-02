@@ -26,7 +26,10 @@ public class Cell extends Sprite implements Living {
   protected float energy = 512;
 
   // How quickly the Cell uses energy.
-  protected float metabolicRate = 1;
+  protected float metabolicRate = 1.2f;
+
+  // What fraction of the Cell's movement is stationary.
+  protected float stationaryFactor = 1;
 
   /**
    * Constructs a Cell specifying coordinates.
@@ -43,6 +46,7 @@ public class Cell extends Sprite implements Living {
     setShape(getDefaultShape());
     setColor(getDefaultColor());
     setMoveList(getDefaultMoveList());
+    updateStationaryFactor();
 
     energy = CellularSimulator.rand.nextInt(1024);
   }
@@ -127,8 +131,11 @@ public class Cell extends Sprite implements Living {
 
     for (int i = 0; i < moveCount; i++) {
       directions[i] = CellularSimulator.rand.nextInt(5);
-      distances[i]  = CellularSimulator.rand.nextInt(40);
+      distances[i]  = CellularSimulator.rand.nextInt(10) + 1;
     }
+
+    // int[][] list = {{0},{1}};
+    // return list;
 
     int[][] moveList = {directions, distances};
     return moveList;
@@ -208,6 +215,10 @@ public class Cell extends Sprite implements Living {
     distanceMoved += i;
   }
 
+  public int getCurrentMove() {
+    return moveList[0][moveIndex];
+  }
+
   /**
    * Gets the amount of energy the Cell has.
    *
@@ -243,9 +254,26 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
+   * Determines and updates what fraction of the time the Cell spends stationary.
+   */
+  public void updateStationaryFactor() {
+    float total      = 0;
+    float stationary = 0;
+
+    for (int i = 0; i < moveList[0].length; i++) {
+      total += moveList[1][i];
+      if (moveList[0][i] == Cell.NONE) {
+        stationary += moveList[1][i];
+      }
+    }
+
+    stationaryFactor = stationary / total;
+  }
+
+  /**
    * Updates this Cell.
    *
-   * @param  sim   The simulation.
+   * @param  sim  The simulation.
    */
   public void update(CellularSimulator sim) {
     move();
@@ -265,9 +293,7 @@ public class Cell extends Sprite implements Living {
       incMoveIndex(1);
     }
 
-    int currentMove = moveList[0][moveIndex];
-
-    switch (currentMove) {
+    switch (getCurrentMove()) {
       case NONE:
         break;
       case UP:
@@ -297,6 +323,12 @@ public class Cell extends Sprite implements Living {
     int maxY = y + size;
 
     float absorbedEnergy = foodMap.absorbFromArea(minX, maxX, minY, maxY);
+
+    if (getCurrentMove() == Cell.NONE) {
+      double multiplier = 4 * Math.pow(stationaryFactor, 4);
+      absorbedEnergy *= Math.max(multiplier, 1);
+    }
+
     energy = Math.min((energy + absorbedEnergy), 1024);
   }
 
@@ -308,9 +340,10 @@ public class Cell extends Sprite implements Living {
   public void divide(CellCollection cells) {
     if (energy >= 1024) {
       float newEnergy = energy / 2;
+      setEnergy(newEnergy);
+
       Cell child = createChildCell();
       child.setEnergy(newEnergy);
-      setEnergy(newEnergy);
       cells.add(child);
     }
   }
@@ -325,10 +358,22 @@ public class Cell extends Sprite implements Living {
   /**
    * Reduces the energy level of the Cell.
    *
+   * If the energy level drops to 0, the Cell is removed from the CellCollection.
+   *
    * @param  cells  The CellCollection.
    */
   public void metabolise(CellCollection cells) {
-    energy = Math.max((energy - metabolicRate), 0);
+    float reduction = metabolicRate;
+
+    // Staying still require no energy.
+    if (getCurrentMove() == Cell.NONE) {
+      double multiplier = 50 * Math.pow(stationaryFactor, 4);
+      reduction /= Math.max(multiplier, 1);
+    }
+
+    energy = Math.max((energy - reduction), 0);
+
+    // Destroy Cells with no energy.
     if (energy == 0) {
       cells.remove(this);
     }
