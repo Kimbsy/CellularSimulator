@@ -4,10 +4,11 @@ import java.util.*;
 public class Cell extends Sprite implements Living {
 
   // Class constants.
-  public static final int UP    = 0;
-  public static final int DOWN  = 1;
-  public static final int LEFT  = 2;
-  public static final int RIGHT = 3;
+  public static final int NONE  = 0;
+  public static final int UP    = 1;
+  public static final int DOWN  = 2;
+  public static final int LEFT  = 3;
+  public static final int RIGHT = 4;
 
   // The size of the Cell.
   protected int size = 5;
@@ -125,7 +126,7 @@ public class Cell extends Sprite implements Living {
     int[] distances  = new int[moveCount];
 
     for (int i = 0; i < moveCount; i++) {
-      directions[i] = CellularSimulator.rand.nextInt(4);
+      directions[i] = CellularSimulator.rand.nextInt(5);
       distances[i]  = CellularSimulator.rand.nextInt(40);
     }
 
@@ -267,6 +268,8 @@ public class Cell extends Sprite implements Living {
     int currentMove = moveList[0][moveIndex];
 
     switch (currentMove) {
+      case NONE:
+        break;
       case UP:
         incY(-1);
         break;
@@ -305,11 +308,18 @@ public class Cell extends Sprite implements Living {
   public void divide(CellCollection cells) {
     if (energy >= 1024) {
       float newEnergy = energy / 2;
-      Cell child = new Cell((x - size), (y - size), getShape(), getMoveList());
+      Cell child = createChildCell();
       child.setEnergy(newEnergy);
       setEnergy(newEnergy);
       cells.add(child);
     }
+  }
+
+  public Cell createChildCell() {
+    int x = this.x + CellularSimulator.rand.nextInt(size * 2) - size;
+    int y = this.y + CellularSimulator.rand.nextInt(size * 2) - size;
+    Cell child = new Cell(x, y, getShape(), getMoveList());
+    return child;
   }
 
   /**
