@@ -1,13 +1,14 @@
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 public class CellCollection {
 
   // List of Cells in the simulation.
-  protected List<Cell> cells = Collections.synchronizedList(new ArrayList<Cell>());
+  protected List<Cell> cells = new CopyOnWriteArrayList<Cell>();
   
   /**
    * Initialises the Cells for the simulation.
@@ -16,9 +17,12 @@ public class CellCollection {
     for (int i = 0; i < CellularSimulator.CELL_COUNT; i++) {
       int randX = CellularSimulator.rand.nextInt(CellularSimulator.WIDTH);
       int randY = CellularSimulator.rand.nextInt(CellularSimulator.HEIGHT);
+
       Cell cell = new Cell(randX, randY);
+
       int[][] moveList = Cell.getRandomMoveList();
       cell.setMoveList(moveList);
+
       add(cell);
     }
   }
@@ -62,6 +66,15 @@ public class CellCollection {
   }
 
   /**
+   * Removes a specific Cell from the collection.
+   *
+   * @param  cell  The Cell to remove.
+   */
+  public void remove(Cell cell) {
+    cells.remove(cell);
+  }
+
+  /**
    * Draws all the Cells.
    *
    * @param  g2d       The Graphics object.
@@ -86,7 +99,7 @@ public class CellCollection {
 
     while (iter.hasNext()) {
       Cell cell = iter.next();
-      cell.update(iter, sim);
+      cell.update(sim);
     }
   }
 }

@@ -16,24 +16,35 @@ public class FoodMap {
   // The energy levels of erach pixel in the simulation.
   protected int[][] map = new int[width][height];
 
+  /**
+   * Initialises the FoodMap.
+   */
   public void init() {
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        map[i][j] = CellularSimulator.rand.nextInt(256);
-      }
+
+  }
+
+  /**
+   * Adds food to random coordinate locations.
+   */
+  public void update() {
+    for (int i = 0; i < CellularSimulator.FOOD_RATE; i++) {
+      int randX = CellularSimulator.rand.nextInt(width);
+      int randY = CellularSimulator.rand.nextInt(height);
+
+      map[randX][randY] = CellularSimulator.rand.nextInt(256);
     }
   }
 
-  public void update() {
-    // int total = 0;
-    // for (int i = 0; i < width; i++) {
-    //   for (int j = 0; j < height; j++) {
-    //     total += map[i][j];
-    //   }
-    // }
-    // System.out.println(total);
-  }
-
+  /**
+   * Drains some energy from an area defined by a rectangle.
+   *
+   * @param  minX  The left edge.
+   * @param  maxX  The right edge.
+   * @param  minY  The top edge.
+   * @param  maxY  The bottom edge.
+   *
+   * @return  How much energy was drained.
+   */
   public float absorbFromArea(int minX, int maxX, int minY, int maxY) {
     float absorbedEnergy = 0;
 

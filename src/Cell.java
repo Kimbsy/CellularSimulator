@@ -47,7 +47,7 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Constructs a Cell specifying all required attributes.
+   * Constructs a Cell specifying coordinates, shape and moveList.
    *
    * @param  x         The X coordinate of the Cell.
    * @param  y         The Y coordinate of the Cell.
@@ -86,7 +86,7 @@ public class Cell extends Sprite implements Living {
   }
 
   /**
-   * Get the color of a Cell based on its energy level.
+   * Gets the color of a Cell based on its energy level.
    *
    * @return  The color of the Cell.
    */
@@ -244,17 +244,13 @@ public class Cell extends Sprite implements Living {
   /**
    * Updates this Cell.
    *
-   * @param  iter  An iterator for the simulation CellCollection.
    * @param  sim   The simulation.
    */
-  public void update(ListIterator<Cell> iter, CellularSimulator sim) {
-    if (energy <= 0) {
-      return;
-    }
+  public void update(CellularSimulator sim) {
     move();
     absorb(sim.foodMap);
-    divide(iter);
-    metabolise();
+    divide(sim.cells);
+    metabolise(sim.cells);
   }
 
   /**
@@ -304,25 +300,27 @@ public class Cell extends Sprite implements Living {
   /**
    * Creates a new Cell based on this one.
    *
-   * @param  iter  An iterator for the simulation CellCollection.
+   * @param  cells  The CellCollection.
    */
-  public void divide(ListIterator<Cell> iter) {
+  public void divide(CellCollection cells) {
     if (energy >= 1024) {
       float newEnergy = energy / 2;
       Cell child = new Cell((x - size), (y - size), getShape(), getMoveList());
       child.setEnergy(newEnergy);
       setEnergy(newEnergy);
-      iter.add(child);
+      cells.add(child);
     }
   }
 
   /**
    * Reduces the energy level of the Cell.
+   *
+   * @param  cells  The CellCollection.
    */
-  public void metabolise() {
+  public void metabolise(CellCollection cells) {
     energy = Math.max((energy - metabolicRate), 0);
-    if (energy - metabolicRate > 0) {
-      energy -= metabolicRate;
+    if (energy == 0) {
+      cells.remove(this);
     }
   }
 }

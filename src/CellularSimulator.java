@@ -9,7 +9,8 @@ public class CellularSimulator extends JFrame implements Runnable {
   // Class constants
   public static final int WIDTH      = 1600;
   public static final int HEIGHT     = 900;
-  public static final int CELL_COUNT = 10;
+  public static final int CELL_COUNT = 50;
+  public static final int FOOD_RATE  = 500;
 
   // Random number generator.
   public static Random rand = new Random();

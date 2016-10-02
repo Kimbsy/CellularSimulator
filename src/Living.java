@@ -76,12 +76,21 @@ interface Living {
   public void setMetabolicRate(float metabolicRate);
 
   /**
-   * Reduce the energy level of the entity.
-   */
-  public void metabolise();
-
-  /**
    * Absorb energy from the surrounding environment.
    */
   public void absorb(FoodMap foodMap);
+
+  /**
+   * Creates a new entity based on this one.
+   *
+   * @param  cells  The CellCollection.
+   */
+  public void divide(CellCollection cells);
+
+  /**
+   * Reduce the energy level of the entity.
+   *
+   * @param  cells  The CellCollection.
+   */
+  public void metabolise(CellCollection cells);
 }
